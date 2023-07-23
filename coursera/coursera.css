@@ -1,0 +1,62 @@
+<DOCTYPE html>
+<html>
+  <head>
+<h1><center>
+    MENU
+</center></h1>
+</head>
+  <style>
+   body
+   {
+    margin:100px  500px  500px 500px;
+   }
+  .classa
+    {
+      border:5px solid;
+      background-color:grey;
+      width:400px;
+    }
+    .suba
+    {
+       border:5px solid black;
+      background-color:pink;
+      padding-right:20px;
+      float:right;
+     
+      }
+    .classb
+    {
+      border:5px solid black;
+      background-color:grey;
+        width:400px;
+    }
+    .subb
+    {
+       border:5px solid black;
+      background-color:red;
+       padding-right:20px;
+      float:right;
+      }
+    .classc
+    {
+       border:5px solid black;
+      background-color:grey;
+        width:400px;
+      }
+    .subc
+    {
+       border:5px solid black;
+      background-color:yellow;
+       padding-right:20px;
+      float:right;
+      }
+  </style>
+  <title>
+    Coursera Assignment
+  </title>
+  <body>
+   <p class="classa" ><b class="suba" >Soya Chunks</b><br>Soya chunks are souce of protein ,<br>which contains protein more than or equal to that of eggs ,<br>you can also prepare soya manchurian ,<br> put as an ingredient in pulav or<br> any other dishes you are preparing it is a tastiest way to protein snack.<br></p>
+    <p class=" classb" ><b class="subb" > Paneer</b><br>Paneer is a source of protein ,<br> prepared from milk , <br>with which you can prepare dishes like paneer manchurian ,<br>paneer tikka and add it as an optional to food items like Maggie ,<br> pulav , Biriyani and so on<br> </p>
+    <p class="classc" > <b class="subc" >Mushrooms</b><br>Mushrooms are fungi belonging to Basidomyces ,<br> as like as that of soya chunks and paneer <br>it is also a source of protein you can prepare mushroom manchurian ,<br> mushroom tika , mushroom soup and as an optional for maggie ,<br>pulav , biriyani and so on <br></p>
+  </body>
+</html>
