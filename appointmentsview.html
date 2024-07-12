@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<head><center><b>APPOINTMENT INFORMATION</b></center>
+    * Please add existing doctor and patient details
+    <title>Appointment Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="date"], input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <a href="/emr_menu" class="home-icon"> HOME
+        <i class="fas fa-home"></i>
+    </a>
+    <form action="/submitappoint" method="post">
+        <div>
+            <label>APPOINTMENT ID</label>
+            <input type="text" name="appointment_id" placeholder="Enter appointment ID" pattern="\d+" required>
+            <label>PATIENT ID</label>
+            <input type="text" name="patient_id" placeholder="Enter patient ID" pattern="\d+" required>
+            <label>DOCTOR ID</label>
+            <input type="text" name="doctor_id" placeholder="Enter doctor ID" pattern="\d+" required>
+            <label>PURPOSE</label>
+            <input type="text" name="purpose" placeholder="Enter purpose of visit" required>
+            <label>STATUS</label>
+            <input type="text" name="status" value="Pending" required>
+            <label>TIME</label>
+            <input type="time" name="time" required>
+            <label>DATE</label>
+            <input type="date" name="date" required>
+            <button type="button" onclick="submitAppointment()">SUBMIT</button>
+        </div>
+    </form>
+    <script>
+        function submitAppointment() {
+            // Get the form data
+            var form = document.forms[0];
+            var data = {
+                appointment_id: form['appointment_id'].value,
+                patient_id: form['patient_id'].value,
+                doctor_id: form['doctor_id'].value,
+                purpose: form['purpose'].value,
+                status: form['status'].value,
+                time: form['time'].value + ':00',  // Add seconds to the time value
+                date: form['date'].value
+            };
+    
+            // Send request to Flask server to submit the appointment
+            fetch('/submitappoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                if (response.ok) {
+                    // Show a success message
+                    alert('Appointment submitted successfully!');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

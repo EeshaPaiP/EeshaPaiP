@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<head><center><b>DOCTORS</b></center>
+    <title>Insert Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="/emr_menu" class="home-icon"> HOME
+        <i class="fas fa-home"></i>
+    </a>
+    <form id="doctorForm" action="/submitdoc" method="post">
+        <label for="doctor_id">DOCTOR ID</label>
+        <input type="text" id="doctor_id" name="doctor_id" required><br><br>
+        <label for="name">NAME</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="specializations">SPECIALIZATIONS</label>
+        <input type="text" id="specializations" name="specializations" required><br><br>
+        <label for="contact">CONTACT</label>
+        <input type="text" id="contact" name="contact" required><br><br>
+        <button type="button" onclick="submitDoctor()">Submit</button>
+    </form>
+    <script>
+        function submitDoctor() {
+            // Get the form data
+            var form = document.getElementById('doctorForm');
+            var data = {
+                doctor_id: form['doctor_id'].value,
+                name: form['name'].value,
+                specializations: form['specializations'].value,
+                contact: form['contact'].value
+            };
+    
+            // Validation checks
+            if (data.doctor_id.length > 20) {
+                alert('Doctor ID must be less than 20 characters.');
+                return;
+            }
+            if (data.name.length > 20) {
+                alert('Name must be less than 20 characters.');
+                return;
+            }
+            if (data.specializations.length > 100) {
+                alert('Specializations must be less than 100 characters.');
+                return;
+            }
+            if (data.contact.length > 10) {
+                alert('Contact must be less than 10 characters.');
+                return;
+            }
+    
+            // Send request to Flask server to submit the doctor information
+            fetch('/submitdoc', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                if (response.ok) {
+                    // Show a success message
+                    alert('Doctor information submitted successfully!');
+                } else {
+                    response.json().then(function(data) {
+                        // Show an error message
+                        alert(data.error);
+                    });
+                }
+            }).catch(function(error) {
+                // Show an error message
+                alert('An error occurred: ' + error.message);
+            });
+        }
+    </script>
+    
+</body>
+</html>

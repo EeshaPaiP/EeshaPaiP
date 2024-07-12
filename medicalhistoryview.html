@@ -1,0 +1,102 @@
+
+<html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<head><center><b>MEDICAL HISTORY</b></center>
+    * Please add existing Patient details
+    <title>Medical History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <a href="/emr_menu" class="home-icon"> HOME
+        <i class="fas fa-home"></i>
+    </a>
+    <form id="medicalForm" action="/submitmedical" method="post">
+        <div>
+            <label>PATIENT ID</label>
+            <input type="text" name="Patient_id" required>
+            <label>EYE CONDITION</label>
+            <input type="text" name="Eyecondition" required>
+            <label>ALLERGY</label>
+            <input type="text" name="Allergy" required>
+            <label>MEDICATIONS</label>
+            <input type="text" name="Medications" required>
+            <label>PAST SURGERY</label>
+            <input type="text" name="Pastsurgery" required><br>
+            <button type="button" onclick="submitMedical()">SUBMIT</button>
+                </form>
+                <script>
+                    function submitMedical() {
+                        // Prevent the form from being submitted normally
+                        event.preventDefault();
+            
+                        // Get the form data
+                        var form = document.getElementById('medicalForm');
+                        var data = {
+                            Patient_id: form['Patient_id'].value,
+                            Eyecondition: form['Eyecondition'].value,
+                            Allergy: form['Allergy'].value,
+                            Medications: form['Medications'].value,
+                            Pastsurgery: form['Pastsurgery'].value,
+                            
+                        };
+            
+                        // Send request to Flask server to submit the medical history information
+                        fetch('/submitmedical', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        }).then(function(response) {
+                            if (response.ok) {
+                                // Show a success message
+                                alert('Medical history information submitted successfully!');
+                            }
+                        });
+                    }
+                </script>
+            </body>
+            </html>
+        

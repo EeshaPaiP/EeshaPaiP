@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<head><center><b>BILLING AND PAYMENT</b></center>
+    * Please Add Existing Patient Data
+    <title>Billing And Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <a href="/emr_menu" class="home-icon"> HOME
+        <i class="fas fa-home"></i>
+    </a>
+    <form action="/submitbillandpay" method="post" id="billingForm">
+        <div>
+            <label>Product ID</label>
+            <input type="text" id="product_id" name="product_id" required>
+            <label>Product Name</label>
+            <input type="text" id="product_name" name="product_name" required>
+            <label>Quantity Available</label>
+            <input type="text" id="quantity_available" name="quantity_available" required>
+            <label>Patient ID</label>
+            <input type="text" id="patient_id" name="patient_id" required>
+            <label>Bill ID</label>
+            <input type="text" id="bill_id" name="bill_id" required>
+            <label>Total Amount</label>
+            <input type="text" id="total_amount" name="total_amount" required>
+            <label>Pay Date</label>
+            <input type="date" id="pay_date" name="pay_date" required>
+            <label>Pay Amount</label>
+            <input type="text" id="pay_amount" name="pay_amount" required>
+            <label>Status</label>
+            <input type="text" id="status" name="status" required>
+            <button type="button" onclick="submitBilling()">SUBMIT</button>
+        </div>
+    </form>
+    <script>
+        function submitBilling() {
+            // Get the form data
+            var form = document.forms['billingForm'];
+            var data = {
+                product_id: form['product_id'].value,
+                product_name: form['product_name'].value,
+                quantity_available: form['quantity_available'].value,
+                patient_id: form['patient_id'].value,
+                bill_id: form['bill_id'].value,
+                total_amount: form['total_amount'].value,
+                pay_date: form['pay_date'].value,
+                pay_amount: form['pay_amount'].value,
+                status: form['status'].value
+            };
+    
+            // Send request to Flask server to submit the billing information
+            fetch('/submitbillandpay', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                if (response.ok) {
+                    // Show a success message
+                    alert('Billing information submitted successfully!');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

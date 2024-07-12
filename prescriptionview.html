@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<head>
+    <title>Prescription Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <a href="/emr_menu" class="home-icon"> HOME
+        <i class="fas fa-home"></i>
+    </a>
+    <form id="prescriptionForm" action="/submitprescript" method="post">
+        <div>
+            <h1><center><b>MEDICINE PRESCRIPTION</b></center></h1>
+            <label>PRESCRIPTION ID</label>
+            <input type="text" name="Prescription_id" required>
+            <label>PATIENT ID</label>
+            <input type="text" name="Patient_id" required>
+            <label>MEDICINE</label>
+            <input type="text" name="Medicine" required>
+            <label>REMARK</label>
+            <input type="text" name="Remark" required>
+            <label>DAYS</label>
+            <input type="text" name="Days" required>
+            <label>EYE</label>
+            <input type="text" name="Eye" required>
+            <h1><center><b>SPECTACLE PRESCRIPTION</b></center></h1>
+            <h2><center><b>RIGHT EYE</b></center></h2>
+            <label>SPH DV</label>
+            <input type="text" name="SPHDVRight" required>
+            <label>SPH NV</label>
+            <input type="text" name="SPHNVRight" required>
+            <label>CYL DV</label>
+            <input type="text" name="CYLDVRight" required>
+            <label>CYL NV</label>
+            <input type="text" name="CYLNVRight" required>
+            <label>AXIS DV</label>
+            <input type="text" name="AxisDVRight" required>
+            <label>AXIS NV</label>
+            <input type="text" name="AxisNVRight" required>
+            <label>VA DV</label>
+            <input type="text" name="VADVRight" required>
+            <label>VA NV</label>
+            <input type="text" name="VANVRight" required>
+            <h2><center><b>LEFT EYE</b></center></h2>
+            <label>SPH DV</label>
+            <input type="text" name="SPHDVLeft" required>
+            <label>SPH NV</label>
+            <input type="text" name="SPHNVLeft" required>
+            <label>CYL DV</label>
+            <input type="text" name="CYLDVLeft" required>
+            <label>CYL NV</label>
+            <input type="text" name="CYLNVLeft" required>
+            <label>AXIS DV</label>
+            <input type="text" name="AxisDVLeft" required>
+            <label>AXIS NV</label>
+            <input type="text" name="AxisNVLeft" required>
+            <label>VA DV</label>
+            <input type="text" name="VADVLeft" required>
+            <label>VA NV</label>
+            <input type="text" name="VANVLeft" required>
+                    <button type="button" onclick="submitPrescription()">SUBMIT</button>
+                </form>
+                <script>
+                    function submitPrescription() {
+                        // Prevent the form from being submitted normally
+                        event.preventDefault();
+            
+                        // Get the form data
+                        var form = document.getElementById('prescriptionForm');
+                        var data = {
+                            Prescription_id: form['Prescription_id'].value,
+                            Patient_id: form['Patient_id'].value,
+                            Medicine: form['Medicine'].value,
+                            Remark: form['Remark'].value,
+                            Days: form['Days'].value,
+                            Eye: form['Eye'].value,
+                            SPHDVRight: form['SPHDVRight'].value,
+                            SPHNVRight: form['SPHNVRight'].value,
+                            CYLDVRight: form['CYLDVRight'].value,
+                            CYLNVRight: form['CYLNVRight'].value,
+                            AxisDVRight: form['AxisDVRight'].value,
+                            AxisNVRight: form['AxisNVRight'].value,
+                            VADVRight: form['VADVRight'].value,
+                            VANVRight: form['VANVRight'].value,
+                            SPHDVLeft: form['SPHDVLeft'].value,
+                            SPHNVLeft: form['SPHNVLeft'].value,
+                            CYLDVLeft: form['CYLDVLeft'].value,
+                            CYLNVLeft: form['CYLNVLeft'].value,
+                            AxisDVLeft: form['AxisDVLeft'].value,
+                            AxisNVLeft: form['AxisNVLeft'].value,
+                            VADVLeft: form['VADVLeft'].value,
+                            VANVLeft: form['VANVLeft'].value
+                        };
+            
+                        // Send request to Flask server to submit the prescription information
+                        fetch('/submitprescript', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        }).then(function(response) {
+                            if (response.ok) {
+                                // Show a success message
+                                alert('Prescription information submitted successfully!');
+                            }
+                        });
+                    }
+                </script>
+            </body>
+            </html>
+            

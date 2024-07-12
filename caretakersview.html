@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <center><b>CARETAKER INFORMATION</b></center>
+    <title>Caretaker Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <form action="/submitcaretaker" method="post" id="caretaker_form">
+        <div>
+            <label>CARETAKERS ID</label>
+            <input type="text" id="caretakers_id" name="caretakers_id" required>
+            <label>NAME</label>
+            <input type="text" id="name" name="name" required>
+            <label>CONTACT</label>
+            <input type="text" id="contact" name="contact" required>
+            <button type="button" onclick="submitCaretaker()">SUBMIT</button>
+        </div>
+    </form>
+    <script>
+        function submitCaretaker() {
+            // Get the form data
+            var form = document.forms['caretaker_form'];
+            var data = {
+                caretakers_id: form['caretakers_id'].value,
+                name: form['name'].value,
+                contact: form['contact'].value
+            };
+    
+            // Validation checks
+            if (data.caretakers_id.length > 20) {
+                alert('Caretakers ID must be less than 20 characters.');
+                return;
+            }
+            if (data.name.length > 20) {
+                alert('Name must be less than 20 characters.');
+                return;
+            }
+            if (data.contact.length > 10) {
+                alert('Contact must be less than 10 characters.');
+                return;
+            }
+    
+            // Send request to Flask server to submit the caretaker information
+            fetch('/submitcaretaker', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                if (response.ok) {
+                    // Show a success message
+                    alert('Caretaker information submitted successfully!');
+                } else {
+                    // Show an error message
+                    alert('Failed to submit caretaker information. Please try again.');
+                }
+            }).catch(function(error) {
+                // Show an error message
+                alert('An error occurred: ' + error.message);
+            });
+        }
+    </script>
+    
+</body>
+</html>
