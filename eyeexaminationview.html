@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<head><center><b>EYE EXAMINATION</b></center>
+    * Please add existing patient details
+    <title>Eye Examination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <a href="/emr_menu" class="home-icon"> HOME
+        <i class="fas fa-home"></i>
+    </a>
+    <form id="eyeExamForm" action="/submiteyeexam" method="post">
+        <div>
+            <label>PATIENT ID</label>
+            <input type="text" name="patient_id" required>
+            <h1>INTRA OCCULAR PRESSURE</h1>
+            <label>METHOD</label>
+            <input type="text" name="method" required>
+            <label>LEFT EYE</label>
+            <input type="text" name="lefteye1" required>
+            <label>RIGHT EYE</label>
+            <input type="text" name="righteye1" required>
+            <h1>VISUAL ACQUITY</h1>
+            <label>VISION PART</label>
+            <input type="text" name="visionpart" required>
+            <label>LEFT EYE</label>
+            <input type="text" name="lefteye2" required>
+            <label>RIGHT EYE</label>
+            <input type="text" name="righteye2" required>
+            <h1>FINDINGS</h1>
+            <label>EYE PART</label>
+            <input type="text" name="eyepart" required>
+            <label>LEFT EYE</label>
+            <input type="text" name="lefteye3" required>
+            <label> RIGHT EYE</label>
+            <input type="text" name="righteye3" required>
+            <label>EXAM DATE</label>
+            <input type="date" name="exam_date" required>
+            <label>DIAGNOSIS</label>
+            <input type="text" name="diagnosis" required>
+            <label>TREATMENT  DETAILS</label>
+            <input type="text" name="treatment" required>
+        <button type="button" onclick="submitEyeExam()">SUBMIT</button>
+    </form>
+    <script>
+        function submitEyeExam() {
+            // Prevent the form from being submitted normally
+            event.preventDefault();
+
+            // Get the form data
+            var form = document.getElementById('eyeExamForm');
+            var data = {
+                patient_id: form['patient_id'].value,
+                method: form['method'].value,
+                lefteye1: form['lefteye1'].value,
+                righteye1: form['righteye1'].value,
+                visionpart: form['visionpart'].value,
+                lefteye2: form['lefteye2'].value,
+                righteye2: form['righteye2'].value,
+                eyepart: form['eyepart'].value,
+                lefteye3: form['lefteye3'].value,
+                righteye3: form['righteye3'].value,
+                exam_date: form['exam_date'].value,
+                diagnosis: form['diagnosis'].value,
+                treatment: form['treatment'].value
+            };
+
+            // Send request to Flask server to submit the eye examination information
+            fetch('/submiteyeexam', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                if (response.ok) {
+                    // Show a success message
+                    alert('Eye examination information submitted successfully!');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

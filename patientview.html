@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<head><center><b>PATIENT INFORMATION</b></center>
+    <title>Patient Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <a href="/emr_menu" class="home-icon"> HOME
+        <i class="fas fa-home"></i>
+    </a>
+    <form action="/submitpatient" method="post" id="patientForm">
+        <div>
+            <label for="patient_id">PATIENT ID</label>
+            <input type="text" id="patient_id" name="patient_id" required>
+            <label for="first_name">PATIENT FIRST NAME</label>
+            <input type="text" id="first_name" name="first_name" required>
+            <label for="last_name">PATIENT LAST NAME</label>
+            <input type="text" id="last_name" name="last_name" required>
+            <label for="age">PATIENT AGE</label>
+            <input type="text" id="age" name="age" required>
+            <label for="gender">PATIENT GENDER</label>
+            <input type="text" id="gender" name="gender" required>
+            <label for="contact_info">PATIENT CONTACT INFORMATION</label>
+            <input type="text" id="contact_info" name="contact_info" required>
+            <label for="dob">PATIENT DOB</label>
+            <input type="text" id="dob" name="dob" required>
+        </div>
+        <button type="button" onclick="submitPatient()">SUBMIT</button>
+    </form>
+    <script>
+        function submitPatient() {
+            // Get the form data
+            var form = document.forms['patientForm'];
+            var data = {
+                patient_id: form['patient_id'].value,
+                first_name: form['first_name'].value,
+                last_name: form['last_name'].value,
+                age: form['age'].value,
+                gender: form['gender'].value,
+                contact_info: form['contact_info'].value,
+                dob: form['dob'].value
+            };
+    
+            // Validation checks
+            if (data.patient_id.length > 20) {
+                alert('Patient ID must be less than 20 characters.');
+                return;
+            }
+            if (data.first_name.length > 10) {
+                alert('First Name must be less than 10 characters.');
+                return;
+            }
+            if (data.last_name.length > 10) {
+                alert('Last Name must be less than 10 characters.');
+                return;
+            }
+            if (data.age.length > 3 || isNaN(data.age) || parseInt(data.age) < 0) {
+                alert('Age must be a positive number less than 1000.');
+                return;
+            }
+            if (data.gender.length > 2) {
+                alert('Gender must be less than 2 characters.');
+                return;
+            }
+            if (data.contact_info.length > 10) {
+                alert('Contact must be less than 10 characters.');
+                return;
+            }
+            // Validate date of birth format (assuming YYYY-MM-DD)
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(data.dob)) {
+                alert('Date of Birth must be in the format YYYY-MM-DD.');
+                return;
+            }
+    
+            // Send request to Flask server to submit the patient information
+            fetch('/submitpatient', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                if (response.ok) {
+                    // Show a success message
+                    alert('Patient information submitted successfully!');
+                } else {
+                    // Show an error message
+                    alert('Failed to submit patient information. Please try again.');
+                }
+            }).catch(function(error) {
+                // Show an error message
+                alert('An error occurred: ' + error.message);
+            });
+        }
+    </script>
+    
+</body>
+</html>

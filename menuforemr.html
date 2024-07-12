@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EMR Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            background-image: url("https://th.bing.com/th/id/OIP.N1QtaNb_lrWYkFU_qDYUCAAAAA?w=176&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7");
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .menu {
+            background-color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .menu-item {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background-color: #0056b3;
+        }
+        .content {
+            margin-top: 50px;
+            padding: 20px;
+        }
+        .content img {
+            width: 1000px;
+            height: 500px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Style for the 'Back to Login' button */
+        .back-to-login {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .back-to-login:hover {
+            background-color: #0056b3;
+        }
+        .button-container a.button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Align with other inline elements */
+        }
+        .button-container a.button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="{{ url_for('printthedoc_route') }}" class="menu-item">Doctors</a>
+        <a href="{{ url_for('printthepatients_route') }}" class="menu-item">Patients</a>
+        <a href="{{ url_for('printappoint_route') }}" class="menu-item">Appointments</a>
+        <a href="{{ url_for('printspecs_route') }}" class="menu-item">Spectacles Sales</a>
+        <a href="{{ url_for('printcare_route') }}" class="menu-item">Caretakers</a>
+        <a href="{{ url_for('printmedical_route') }}" class="menu-item">Medical History</a>
+        <a href="{{ url_for('printeyeexam_route') }}" class="menu-item">Eye Examination</a>
+        <a href="{{ url_for('printprescript_route') }}" class="menu-item">Prescription</a>
+        <a href="{{ url_for('printbillandpay_route') }}" class="menu-item">Billing And Payment</a>
+    </div>
+    <div class="content">
+        <h1>Welcome to the Adhokshaja Eye Care Clinic </h1>
+        <p>This is a fictional Electronic Medical Record (EMR) system for an eyecare clinic. You can use the menu above to navigate to different sections of the EMR system.</p>
+        <img src="https://th.bing.com/th/id/OIP.4FeqK0AaUgsirGeWrCrTMQHaE-?w=274&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Spectacles Image">
+        <div class="container">
+                <h1>Insert Medical Records</h1>
+                <div class="button-container">
+                    <a href="{{ url_for('insertdoc_route') }}" class="button">ADD DOCTORS</a>
+                    <a href="{{ url_for('insertpatient_route') }}" class="button">ADD PATIENTS</a>
+                    <a href="{{ url_for('insertappoint_route') }}" class="button">ADD APPOINTMENTS DETAILS</a>
+                    <a href="{{ url_for('insertspecs_route') }}" class="button">ADD SPECTACLE SALES DETAILS</a>
+                    <a href="{{ url_for('insertcaretaker_route') }}" class="button">ADD CARETAKERS DETAILS</a>
+                    <a href="{{ url_for('insertmedical_route') }}" class="button">ADD MEDICAL HISTORY</a>
+                    <a href="{{ url_for('inserteyeexam_route') }}" class="button">ADD EYE EXAMINATION DETAILS</a>
+                    <a href="{{ url_for('insertprescript_route') }}" class="button">ADD PRESCRIPTION</a>
+                    <a href="{{ url_for('insertbillandpay_route') }}" class="button">ADD BILLING AND PAYMENT DETAILS</a>
+                </div>
+            </div>
+        <a href="{{ url_for('login') }}" class="back-to-login">Back to Login Page</a>
+        <!-- Add this form inside the <body> tag where you want the search feature to appear -->
+
+
+</body>
+</html>
