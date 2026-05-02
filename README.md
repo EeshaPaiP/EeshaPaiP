@@ -60,7 +60,7 @@ Problem Solving & Debugging: Resolved Next.js 16 asynchronous dynamic API update
 Database Schema Planning: Used to design the relational table layout for requests and status tracking.
 
 📋 Assumptions & Core Logic
-Leave Balance: Every employee starts with a fixed annual leave balance of 20 days. When a leave request is approved, the requested days are deducted from the employee's balance.
+Leave Balance: Every employee starts with a fixed annual leave balance of 15 days. When a leave request is approved, the requested days are deducted from the employee's balance.
 
 Authentication/Identity: Since this is a simplified assignment, user identity is managed via text input on the form.
 
